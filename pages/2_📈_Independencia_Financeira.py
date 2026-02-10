@@ -1,9 +1,26 @@
 import streamlit as st
+import sys
+import os
 import numpy as np
 import pandas as pd
 import plotly.express as px
 import numpy_financial as npf
 from datetime import datetime, timedelta
+
+# --- IMPORTAÇÃO DO MÓDULO DE NAVEGAÇÃO ---
+# Adiciona a pasta pai (raiz) ao caminho do Python para importar 'navegacao.py'
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from navegacao import sidebar_menu
+
+# --- CONFIGURAÇÃO DA PÁGINA ---
+# (Mantenha o set_page_config original de cada arquivo aqui, com title e icon específicos)
+st.set_page_config(layout="wide", page_title="Russinvest...", page_icon="...")
+
+# --- BARRA LATERAL ---
+sidebar_menu() # <--- ISSO SUBSTITUI TODO O CÓDIGO ANTIGO DE SIDEBAR
+
+# ... (Resto do código do aplicativo)
+
 
 # CONFIGURAÇÃO DA PÁGINA
 st.set_page_config(layout="wide", page_title="Russinvest - Independência", page_icon="📈")
@@ -175,15 +192,6 @@ def gerar_html_aposentadoria(cliente, dados_input, kpis_dict, tabela_html):
 
 # --- SIDEBAR (AGORA COM O ÍCONE E ESTRUTURA IGUAIS) ---
 with st.sidebar:
-    st.markdown("""
-        <div class="sidebar-brand">
-            <div class="brand-flex">
-                <span class="brand-icon">🔷</span>
-                <span class="brand-title">Russinvest</span>
-            </div>
-            <div class="brand-subtitle">Financial Freedom</div>
-        </div>
-    """, unsafe_allow_html=True)
     
     # 1. Nome do Cliente (Padrão Unificado)
     nome_cliente = st.text_input("Nome do Cliente", "Visitante")
